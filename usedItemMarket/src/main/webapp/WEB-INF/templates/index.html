@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="shortcut icon" href="/image/xmu.png" type="image/x-icon"/>
+	<title>校园二手交易平台</title>
+	<meta charset="UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="/css/index.css"/>
+	<script type="text/javascript" src="/js/jquery-3.2.js"></script>
+	<script type="text/javascript" src="/js/search.js"></script>
+
+	<script type="text/javascript">
+		$(function(){
+
+			$(".goods-class li a").on("click",function(){
+				var classId = $(this).prop("title");
+				console.log(classId);
+				var classTop =  $("#container").find(("#"+classId)).offset().top;
+				$("html,body").animate({scrollTop:classTop+ "px"}, 500);
+			});
+		})
+	</script>
+	<script type="text/javascript">
+		$(function (){
+			$('.searchBtn').click(function (){
+				var Keyword = $('.searchIn')[0].value;
+				//if (Keyword != null)
+				window.location.href='/goToSearch.do?Keywords='+Keyword;
+				window.event.returnValue=false;
+				//console.log(window.location);
+			});
+		})
+	</script>
+	<script type="text/javascript">
+		$(function ()
+		{
+			$('.goods-buy').click(function ()
+			{
+				var id = $(this).attr('value');
+				window.location.href = "/goToProductDetail.do?GID="+id;
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		$(function ()
+		{
+			$('.goods-pic').click(function ()
+			{
+				var id = $(this).attr('value');
+				window.location.href = "/goToProductDetail.do?GID="+id;
+			});
+		});
+	</script>
+</head>
+<body>
+	<!-- 导航 -->
+	<header class="navbar">
+
+		<div class="nav-info">
+<!--			<a class="username" href="information.html">用户</a>-->
+			<a href="/login.do" th:if="${marketUser.uname}==null" class="username">用户</a>
+			<a href="/personal_info.do" th:if="${marketUser.uname}!=null" th:text="${marketUser.uname}"></a>
+<!--			<a class="goodsshelf" href="register1.html">||&nbsp;&nbsp;&nbsp;注册</a>-->
+			<a class="goodshelf" href="/login.do" th:if="${marketUser.uname}==null">||&nbsp;&nbsp;&nbsp;我的购物车</a>
+			<a class="goodshelf" href="/goToMyCart.do" th:if="${marketUser.uname}!=null">||&nbsp;&nbsp;&nbsp;我的购物车</a>
+			<a class="logout" href="#" th:if="${marketUser.uname}==null">[ 退 出 ]</a>
+			<a class="logout" href="/logout.do" th:if="${marketUser.uname}!=null">[ 退 出 ]</a>
+		</div> <!-- nav-info -->
+		<form class="nav-search">
+            <a href="/"><img class="logo" src="/image/title.jpg"/></a>
+			<div class="search-form">
+				<a class="search-logo">| &nbsp;<img src="/image/search.png"/></a>
+					<input type="text" id="searchInput" class="searchIn" placeholder="搜二手物品..."/>
+					<input type="text" style="display: none"/>
+					<input type="submit" id="searchButton" class="searchBtn" value="搜索"/>
+			</div>
+		</form><!--  nav-search -->
+		<ul class="menu">
+			<li><a class="active" href="index.html">首页</a></li>
+			<li><a href="/goToMallPage.do">二手商品</a></li>
+<!--			<li><a href="request.html">求购区</a></li>-->
+		</ul>			
+	</header>
+
+
+	<!-- 轮播 -->
+	<div class="carousel">
+		<div class="goods-guide">
+			<h4>物品分类</h4>
+			<ul class="goods-class">
+				<li><a href="#book" title="二手书籍">书籍</a></li>
+				<li><a href="#bed" title="床上用品">床上用品</a></li>
+				<li><a href="#study" title="学习用品">学习用品</a></li>
+				<li><a href="#daily" title="日用品">日用品</a></li>
+			</ul>
+		</div>
+		<div class="slider">
+			<div class="slider-img">
+				<ul class="slider-img-ul">
+					<li><img src="/image/carousel/4.jpg"/></li>
+					<li><img src="/image/carousel/5.jpg"/></li>
+					<li><img src="/image/carousel/1.jpg"/></li>
+<!--					<li><img src="../image/carousel/2.jpg"></li>-->
+					<li><img src="/image/carousel/3.jpg"/></li>
+					<li><img src="/image/carousel/5.jpg"/></li>
+					<li><img src="/image/carousel/1.jpg"/></li>
+				</ul>
+			</div>
+		</div>
+		<div class="goods-guide">
+			<a class="welcome">Hi~欢迎光临！</a><br/>
+			<img src="/image/ran.png"/>
+			<p class="set1">
+				<a href="/login.do" th:if="${marketUser.uname}==null" class="edit">登录</a>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<a href="/goToRegister.do" th:if="${marketUser.uname}==null" class="edit">注册</a>
+				<a href="/personal_info.do" th:if="${marketUser.uname!=null}" class="edit1">进入我的主页</a>
+			</p>
+		</div>	
+	</div>
+
+		<!-- 商品分类 -->
+		<div id="container">
+			<div class="goods-part" id="book">
+				<h3 class="goods-title"><a href="#">书籍</a></h3>
+				<a class="more" href="/goToSearch.do?Keywords=书" > 更多</a>
+				<ul class="goods-lists">
+					<figure class="goods-list" th:each="o:${bookList}">
+						<a href="#" class="goods-pic" th:value="${o.getGID()}">
+							<!--						<img src="/img/1.jpg" th:src="${o.getGID()}"/>-->
+							<img th:if="${o.image==null}" src="/image/book.jpg"/>
+							<img src="" th:src="${o.image}" th:if="${o.image!=null}"/>
+
+						</a>
+						<a href="#" class="goods-info">
+							<h5 class="goods-name" th:text="${o.getName()}">计算机组成原理</h5>
+							<span class="goods-detail" th:text="'种类:' + ${o.getKind()}+' | '+ '数量:' + ${o.getNumber()}"></span>
+							<!--						<span class="goods-detail" th:text="'数量'+${o.getNumber()}"></span>-->
+							<h5 class="goods-price" th:text="'￥'+${o.getPrice()}">999</h5>
+						</a>
+						<a href="#" class="goods-buy" th:value="${o.getGID()}">查看商品详情</a>
+					</figure>
+				</ul>
+			</div>
+
+			<div class="goods-part" id="bed">
+				<h3 class="goods-title"><a href="#">床上用品</a></h3>
+				<a class="more" href="/goToSearch.do?Keywords=床上用品"> 更多</a>
+				<ul class="goods-lists">
+					<figure class="goods-list" th:each="o:${bedList}">
+						<a href="#" class="goods-pic" th:value="${o.getGID()}">
+							<!--						<img src="/img/1.jpg" th:src="${o.getGID()}"/>-->
+							<img th:if="${o.image==null}" src="/image/bed1.jpg"/>
+							<img src="" th:src="${o.image}" th:if="${o.image!=null}"/>
+						</a>
+						<a href="#" class="goods-info">
+							<h5 class="goods-name" th:text="${o.getName()}">计算机组成原理</h5>
+							<span class="goods-detail" th:text="'种类:' + ${o.getKind()}+' | '+ '数量:' + ${o.getNumber()}"></span>
+							<!--						<span class="goods-detail" th:text="'数量'+${o.getNumber()}"></span>-->
+							<h5 class="goods-price" th:text="'￥'+${o.getPrice()}">999</h5>
+						</a>
+						<a href="#" class="goods-buy" th:value="${o.getGID()}">查看商品详情</a>
+					</figure>
+				</ul>
+			</div>
+
+			<div class="goods-part" id="study">
+				<h3 class="goods-title"><a href="#">学习用品</a></h3>
+				<a class="more" href="/goToSearch.do?Keywords=学习用品"> 更多</a>
+				<ul class="goods-lists">
+					<figure class="goods-list" th:each="o:${studyList}">
+						<a href="#" class="goods-pic" th:value="${o.getGID()}">
+							<!--						<img src="/img/1.jpg" th:src="${o.getGID()}"/>-->
+							<img th:if="${o.image==null}" src="/image/1.jpg"/>
+							<img src="" th:src="${o.image}" th:if="${o.image!=null}"/>
+						</a>
+						<a href="#" class="goods-info">
+							<h5 class="goods-name" th:text="${o.getName()}">计算机组成原理</h5>
+							<span class="goods-detail" th:text="'种类:' + ${o.getKind()}+' | '+ '数量:' + ${o.getNumber()}"></span>
+							<!--						<span class="goods-detail" th:text="'数量'+${o.getNumber()}"></span>-->
+							<h5 class="goods-price" th:text="'￥'+${o.getPrice()}">999</h5>
+						</a>
+						<a href="#" class="goods-buy" th:value="${o.getGID()}">查看商品详情</a>
+					</figure>
+				</ul>
+			</div>
+
+			<div class="goods-part" id="daily">
+				<h3 class="goods-title"><a href="#">日用品</a></h3>
+				<a class="more" href="/goToSearch.do?Keywords=日用品" > 更多</a>
+				<ul class="goods-lists">
+					<figure class="goods-list" th:each="o:${dailyList}">
+						<a href="#" class="goods-pic"  th:value="${o.getGID()}">
+							<!--						<img src="/img/1.jpg" th:src="${o.getGID()}"/>-->
+							<img th:if="${o.image==null}" src="/image/lux.jpg"/>
+							<img src="" th:src="${o.image}" th:if="${o.image!=null}"/>
+						</a>
+						<a href="#" class="goods-info">
+							<h5 class="goods-name" th:text="${o.getName()}">计算机组成原理</h5>
+							<span class="goods-detail" th:text="'种类:' + ${o.getKind()}+' | '+ '数量:' + ${o.getNumber()}"></span>
+							<!--						<span class="goods-detail" th:text="'数量'+${o.getNumber()}"></span>-->
+							<h5 class="goods-price" th:text="'￥'+${o.getPrice()}">999</h5>
+						</a>
+						<a href="#" class="goods-buy" th:value="${o.getGID()}">查看商品详情</a>
+					</figure>
+				</ul>
+			</div>
+
+		</div>
+
+		
+
+	<footer>
+		<a href="#">©2021-7 二手物品交易</a>
+		<a href="#">意见反馈&nbsp;&nbsp;&nbsp;联系我们&nbsp;&nbsp;&nbsp;隐私权声明&nbsp;&nbsp;&nbsp;使用条款</a>
+	</footer>
+
+	<script type="text/javascript" src="/js/xSlider.js"></script>
+</body>
+</html>

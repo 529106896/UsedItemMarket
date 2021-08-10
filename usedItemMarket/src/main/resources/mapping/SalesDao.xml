@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.TropicalFlavor.dao.SalesDao">
+    <!--完善1.namespace 2.sql语句的id和resuleType-->
+    <delete id="DeleteGoods">
+        delete  from salegoods where UID=#{UID} and GID=#{marketGoods.GID}
+    </delete>
+
+    <insert id="InsertGoods">
+        insert into salegoods values(#{UID},#{marketGoods.GID})
+    </insert>
+
+    <select id="ShowGoods" resultType="com.TropicalFlavor.po.MarketGoods">
+        select marketgoods.GID,Name,Kind,Price,Number,marketgoods.Image from salegoods,marketgoods
+        where UID=#{UID} and marketgoods.GID=salegoods.GID and marketgoods.Number > 0
+    </select>
+
+    <select id="WhoseGoods" resultType="java.lang.String">
+        select UID from salegoods where GID = #{GID}
+    </select>
+
+</mapper>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<title>管理员后台</title>
+	<meta charset="UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="/css/mygoodsshelf.css"/>
+	<!-- javascript- -->
+	<script type="text/javascript" src="/js/jquery-3.2.js"></script>
+	<script type="text/javascript" src="/js/infomation.js"></script>
+	<script type="text/javascript">
+		$(function ()
+		{
+			$('.sex').click(function ()
+			{
+				var id = $(this).attr('value');
+				window.location.href = '/editThisUser.do?UID=' + id;
+			})
+		});
+	</script>
+
+	<script>
+		$(function ()
+		{
+			$('.name').click(function ()
+			{
+				var r = confirm("确定注销该用户？")
+				if (r === true) {
+					var id = $(this).attr('value');
+//                    alert(id);
+					window.location.href='/deleteThisUser.do?UID='+id;
+				}
+			});
+		})
+	</script>
+
+	<script>
+		$(function ()
+		{
+			$('.submit-btn').click(function ()
+			{
+				var res = $(this).attr("value").split(" ");
+				var id = res[0];
+				var email = res[1];
+
+				var r = confirm("确定重置此用户密码？")
+
+				if(r === true)
+				{
+					window.location.href = "/resetPassword.do?UID=" + id;
+					alert("已向" + email + "发送密码重置通知邮件");
+				}
+
+			});
+		});
+
+
+	</script>
+
+</head>
+<body>
+<!-- 导航条 -->
+<nav class="navbar">
+	<div class="nav-menu">
+		<ul class="menu">
+			<li><a href="#">这里是管理员后台</a></li>
+			<li><a href="#">用户管理</a></li>
+			<li><a href="/goToAdminStage_purchaseRec.do">交易记录管理</a></li>
+		</ul>
+	</div><!-- nav-menu -->
+c
+	<div class="nav-info">
+		<a href="#" th:text="${marketUser.uname}"></a>
+		<a class="logout" href="/logout.do">[ 退 出 ]</a>
+	</div> <!-- nav-info -->
+</nav>
+<br/>
+<a href="/goToAddUser.do" class="btn4"><span>新增用户</span></a>
+<br/>
+<br/>
+<div align="center">
+<!--	<a href="/goToAddUser.do">新增用户</a>-->
+	<table border="1" cellspacing="10px">
+<!--		<a>新增用户</a>-->
+		<thead>
+		<tr>
+			<th width="150px">用户ID</th>
+			<th width="150px">用户名</th>
+			<th width="150px">用户邮箱</th>
+			<th width="150px">用户电话</th>
+			<th width="150px"></th>
+			<th width="150px"></th>
+			<th width="150px"></th>
+		</tr>
+		</thead>
+		<tbody>
+
+		<figure th:each="o:${userList}">
+			<tr>
+				<td th:text="${o.UID}" align="center"></td>
+				<td th:text="${o.uname}" align="center"></td>
+				<td th:text="${o.email}" align="center"></td>
+				<td th:text="${o.phoneNum}" align="center"></td>
+				<td align="center">
+					<a class="submit-btn" th:if="${o.status!=2}" th:value="${o.UID} + ' ' + ${o.email}">重置密码</a>
+					<a th:if="${o.status==2}">已注销</a>
+				</td>
+				<td align="center">
+					<a class="sex" th:if="${o.status!=2}" th:value="${o.UID}">编辑</a>
+					<a th:if="${o.status==2}">已注销</a>
+				</td>
+				<td align="center">
+					<a class="name" th:if="${o.status!=2}" th:value="${o.UID}">注销</a>
+					<a th:if="${o.status==2}">已注销</a>
+				</td>
+			</tr>
+		</figure>
+		</tbody>
+	</table>
+</div>
+
+
+<footer>
+	<a href="#">©2021-7 二手物品交易</a>
+	<a href="#">意见反馈&nbsp;&nbsp;&nbsp;联系我们&nbsp;&nbsp;&nbsp;隐私权声明&nbsp;&nbsp;&nbsp;使用条款</a>
+</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.TropicalFlavor.dao.SRecordDao">
+    <!--完善1.namespace 2.sql语句的id和resuleType-->
+    <delete id="DeleteRecord">
+        delete from traderecord where PID=#{PID}
+    </delete>
+
+    <select id="SelectRecord" resultType="com.TropicalFlavor.po.SaleRecord">
+        select * from traderecord where PID=#{PID}
+    </select>
+
+    <insert id="InsertRecord">
+        insert into useditemmarket.traderecord
+        values(#{PID},#{BuyerID},#{Date},#{Time},#{GID},
+               #{Gname},#{Gkind},#{Gprice},#{Gnumber})
+    </insert>
+
+    <select id="ShowRecord" resultType="com.TropicalFlavor.po.SaleRecord">
+        select PID,BuyerID,Date,Time,traderecord.GID,Gname,Gkind,Gprice,Gnumber
+        from traderecord,salegoods
+        where salegoods.UID=#{marketUser.UID} and traderecord.GID=salegoods.GID
+          and IsSent = #{IsSent} and IsGot = #{IsGot}
+    </select>
+</mapper>

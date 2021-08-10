@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="shortcut icon" href="/image/xmu.png" type="image/x-icon"/>
+  <title>修改商品信息</title>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" type="text/css" href="/css/mygoodsshelf.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/upload.css"/>
+    <script type="text/javascript" src="/js/jquery-3.2.js"></script>
+    <script type="text/javascript">
+        $(function ()
+        {
+            $(".goods-file").change(function ()
+            {
+                var objURL = getObjectURL(this.files[0]);
+                $(".goods-pic").attr("src", objURL);
+                $(".goods-pic").css({opacity:0});
+                $(".goods-pic").show(0).animate({opacity: 1}, 1000);
+            })
+
+            //获取图片的URL
+            function getObjectURL(file)
+            {
+                var url = null;
+                if(window.createObjectURL !== undefined)
+                    url = window.createObjectURL(file);
+                else if(window.URL !== undefined)
+                    url = window.URL.createObjectURL(file);
+                else if(window.webkitURL !== undefined)
+                    url = window.webkitURL.createObjectURL(file);
+                return url;
+            }
+        })
+
+    </script>
+
+</head>
+<body>
+<!-- 导航条 -->
+<nav class="navbar">
+  <div class="nav-menu">
+    <ul class="menu">
+      <li><a href="/">首页</a></li>
+      <li><a href="/goToMallPage.do">二手商品</a></li>
+      <!--                    <li><a href="request.html">求购区</a></li>-->
+    </ul>
+  </div><!-- nav-menu -->
+
+<!--  <form class="nav-search">-->
+<!--    <input type="search" class="searchIn" placeholder="搜二手商品..."/>-->
+<!--    <button class="search-logo"><img src="/image/search.png"/></button>-->
+<!--  </form>-->
+
+  <div class="nav-info">
+    <a href="/personal_info.do" class="name" th:text="${marketUser.uname}">徐荪睿</a>
+    <!--                <a href="../cart.html" class="goodsshelf">||&nbsp;&nbsp;&nbsp;我的购物车</a>-->
+    <a href="/logout.do" class="logout">[ 退 出 ]</a>
+  </div> <!-- nav-info-end -->
+</nav>
+
+<div class="titleName">
+  <h3>修改商品信息</h3>
+</div>
+
+<div class="container">
+  <form action="/modifyProductInfo.do" method="post" enctype="multipart/form-data">
+<!--    <input type="hidden" th:value="${action}" value="1" name="action" class="action"/>-->
+    <!--			<input type="hidden" th:if="${marketGoods.GID}!=null" th:value="${marketGoods.GID}" name="id">-->
+    <!--			<input type="hidden" th:if="${marketGoods.GID}!=null" value="0" name="id"/>-->
+<!--    <p>-->
+<!--      <span class="pic-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>-->
+<!--      商&nbsp;品&nbsp;&nbsp;图&nbsp;片： <input type="file" name="goods-pic" id="goods-file"/>-->
+<!--      <img id="goods-pic" src="/image/ran3.jpg"/>-->
+<!--    </p>-->
+      <p>
+          <span class="pic-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          商&nbsp;品&nbsp;&nbsp;图&nbsp;片： <input type="file" name="image" class="goods-file"/>
+          <img th:if="${marketGoods.image==null}" src="/image/emptyImage.jpg" class="goods-pic"/>
+          <img th:if="${marketGoods.image!=null}" src="" th:src="${marketGoods.image}" class="goods-pic"/>
+      </p><br/>
+    <p>
+      <span class="name-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      商&nbsp;品&nbsp;&nbsp;名&nbsp;称：<input type="text" name="Name" th:value="${marketGoods.name}"/>
+    </p><br/>
+    <p>
+      <span class="number-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      商&nbsp;品&nbsp;&nbsp;数&nbsp;量：<input type="text" name="Number" th:value="${marketGoods.number}"/>
+    </p><br/>
+    <p>
+      <span class="price-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      商&nbsp;品&nbsp;&nbsp;售&nbsp;价：<input type="text" name="Price" th:value="${marketGoods.price}"/>
+    </p><br/>
+
+      <p>
+          <span class="number-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          商&nbsp;品&nbsp;&nbsp;说&nbsp;明：<input type="text" name="Comment" th:value="${marketGoods.comment}"/>
+      </p><br/>
+
+    <p>
+      <span class="desc-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      商&nbsp;品&nbsp;&nbsp;种&nbsp;类：
+        <select name="Kind">
+            <option value="书" th:selected="${marketGoods.kind=='书'}">书</option>
+            <option value="日用品" th:selected="${marketGoods.kind=='日用品'}">日用品</option>
+            <option value="学习用品" th:selected="${marketGoods.kind=='学习用品'}">学习用品</option>
+            <option value="床上用品" th:selected="${marketGoods.kind=='床上用品'}">床上用品</option>
+        </select>
+    </p><br/>
+    <input type="submit" class="submit-btn" name="goods-submit"/>
+  </form>
+</div>
+<footer>
+  <a href="#">©2021-7 二手物品交易</a>
+  <a href="#">意见反馈&nbsp;&nbsp;&nbsp;联系我们&nbsp;&nbsp;&nbsp;隐私权声明&nbsp;&nbsp;&nbsp;使用条款</a>
+</footer>
+</body>
+</html>

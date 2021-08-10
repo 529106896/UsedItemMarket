@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<title>管理员后台</title>
+	<meta charset="UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="/css/mygoodsshelf.css"/>
+
+</head>
+<body>
+<!-- 导航条 -->
+<nav class="navbar">
+	<div class="nav-menu">
+		<ul class="menu">
+			<li><a href="#">这里是管理员后台</a></li>
+			<li><a href="/goToAdminStage.do">用户管理</a></li>
+			<li><a href="#">交易记录管理</a></li>
+		</ul>
+	</div><!-- nav-menu -->
+
+	<div class="nav-info">
+		<a href="#" th:text="${marketUser.uname}"></a>
+		<a class="logout" href="/logout.do">[ 退 出 ]</a>
+	</div> <!-- nav-info -->
+</nav>
+
+
+<div align="center">
+<!--	<a href="/goToAddUser.do">新增用户</a>-->
+	<table border="1" cellspacing="10px">
+<!--		<a>新增用户</a>-->
+		<thead>
+		<tr>
+			<th width="150px">交易ID</th>
+			<th width="150px">买家ID</th>
+			<th width="150px">交易日期</th>
+			<th width="150px">交易时间</th>
+			<th width="150px">卖家ID</th>
+			<th width="150px">商品名称</th>
+			<th width="150px">商品种类</th>
+			<th width="150px">交易价格</th>
+			<th width="150px">交易数量</th>
+			<th width="150px">卖家发货</th>
+			<th width="150px">确认收货</th>
+		</tr>
+		</thead>
+		<tbody>
+		<figure th:each="o:${tradeRecordList}">
+			<tr>
+				<td th:text="${o.PID}" align="center"></td>
+				<td th:text="${o.buyerID}" align="center"></td>
+				<td th:text="${o.date}" align="center"></td>
+				<td th:text="${o.time}" align="center"></td>
+				<td th:text="${o.sellerID}" align="center"></td>
+				<td th:text="${o.gname}" align="center"></td>
+				<td th:text="${o.gkind}" align="center"></td>
+				<td th:text="${o.gprice}" align="center"></td>
+				<td th:text="${o.gnumber}" align="center"></td>
+				<td th:text="${o.isSent()}" align="center"></td>
+				<td th:text="${o.isGot()}" align="center"></td>
+				<!--<td align="center"><a class="submit-btn" th:if="${!o.uname.contains('已注销')}" th:value="${o.UID} + ' ' + ${o.email}">重置密码</a></td>
+				<td align="center"><a class="sex" th:if="${!o.uname.contains('已注销')}" th:value="${o.UID}">编辑</a></td>
+				<td align="center"><a class="name" th:if="${!o.uname.contains('已注销')}" th:value="${o.UID}">注销</a></td>-->
+			</tr>
+		</figure>
+		</tbody>
+	</table>
+</div>
+
+
+<footer>
+	<a href="#">©2021-7 二手物品交易</a>
+	<a href="#">意见反馈&nbsp;&nbsp;&nbsp;联系我们&nbsp;&nbsp;&nbsp;隐私权声明&nbsp;&nbsp;&nbsp;使用条款</a>
+</footer>
+
+
+</body>
+</html>

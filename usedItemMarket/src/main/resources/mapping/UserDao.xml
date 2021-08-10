@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.TropicalFlavor.dao.UserDao">
+    <!--完善1.namespace 2.sql语句的id和resuleType-->
+    <select id="IsTrue" resultType="java.lang.String">
+        select UID from user where UID like "%"#{sno} and Password=#{password}
+    </select>
+
+    <update id="ChangeInfo"  parameterType="com.TropicalFlavor.po.MarketUser">
+        UPDATE user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="Uname!=null">Uname=#{Uname},</if>
+            <if test="Email!=null">Email=#{Email},</if>
+            <if test="PhoneNum!=null">PhoneNum=#{PhoneNum},</if>
+            <if test="Password!=null">Password=#{Password},</if>
+            <if test="Status!=null">Status=#{Status},</if>
+            <if test="Status==null">Status=0,</if>
+        </trim>
+        WHERE UID=#{UID}
+    </update>
+
+    <delete id="DeleteUser">
+        delete from user where UID=#{UID}
+    </delete>
+
+    <insert id="InsertUser" >
+        <if test="Status!=null">insert into user values(#{UID},#{Uname},#{Email},#{PhoneNum},#{Password},#{Status})</if>
+        <if test="Status==null">insert into user values(#{UID},#{Uname},#{Email},#{PhoneNum},#{Password},0)</if>
+    </insert>
+
+    <select id="SelectUser" parameterType="java.lang.String" resultType="com.TropicalFlavor.po.MarketUser">
+        select UID, Uname, Email, PhoneNum, Password, Status from user where UID = #{UID}
+    </select>
+
+    <select id="ShowUser" resultType="com.TropicalFlavor.po.MarketUser">
+        select  * from useditemmarket.user
+    </select>
+
+</mapper>

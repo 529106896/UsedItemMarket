@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>个人信息</title>
+	<meta charset="UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="/css/mygoodsshelf.css"/>
+</head>
+<body>
+<!-- 导航条 -->
+<nav class="navbar">
+	<div class="nav-menu">
+		<ul class="menu">
+			<li><a href="/">首页</a></li>
+			<li><a href="/goToMallPage.do">二手商品</a></li>
+			<!--                <li><a href="request.html">求购区</a></li>-->
+		</ul>
+	</div><!-- nav-menu -->
+
+	<!--		<form class="nav-search">-->
+	<!--			<input type="search" class="searchIn" placeholder="搜二手商品..."/>-->
+	<!--			<button class="search-logo"><img src="/image/search.png"/></button>-->
+	<!--		</form>-->
+
+	<div class="nav-info">
+		<!--			<a class="username" href="information.html">用户</a>-->
+		<a href="/personal_info.do" th:text="${marketUser.uname}"></a>
+		<!--			<a class="goodsshelf" href="register1.html">||&nbsp;&nbsp;&nbsp;注册</a>-->
+		<a class="goodshelf" href="/goToMyCart.do">||&nbsp;&nbsp;&nbsp;我的购物车</a>
+		<a class="logout" href="/logout.do">[ 退 出 ]</a>
+	</div> <!-- nav-info -->
+</nav>
+
+<div class="show">
+	<div class="menu-er" style="width: 170px">
+		<ul>
+			<li><img src="/image/ran1.jpg" class="per"/> </li>
+			<li class="chosen"><a href="/personal_info.do" class="word"><span class="spannn">个人信息</span></a></li>
+			<li class="chosen"><a href="/my_publish_product_page.do" class="word"><span class="spannn">我的商品</span></a></li>
+			<li class="chosen"><a href="/my_buy_history.do" class="word"><span class="spannn">购买记录</span></a></li>
+			<li class="chosen"><a href="/my_sell_history.do" class="word"><span class="spannn">售卖记录</span></a></li>
+		</ul>
+	</div>
+
+
+	<!-- 个人信息 -->
+		<div class="person-info">
+			<p>
+				<a href="/personal_info.do" class="name" th:text="${marketUser.uname}">徐荪睿</a>
+			</p>
+			<p class="set1">
+				<a href="/goToEditPersonalInfo.do" class="edit">编辑个人信息</a>
+				<img class="set-icon" src="/image/setting.png"/>
+			</p>
+			<br/>
+			<p class="set1">
+				<a href="/resetMyPassword.do" class="edit">修改个人密码</a>
+				<img class="set-icon" src="/image/setting.png"/>
+			</p>
+			<!--			<p class="set1" th:if="${access}=='Admin'">-->
+			<!--				<a href="/goToAdminStage.do" class="edit">管理员界面</a>-->
+			<!--				<img class="set-icon" src="/image/setting.png"/>-->
+			<!--			</p>-->
+
+			<div class="contact">
+				<br/>
+				<p>
+					&nbsp;账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：<a href="#" th:text="${marketUser.UID}">123</a>
+
+				</p>
+				<!--				<p>-->
+				<!--					&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：<a href="#" th:text="${marketUser.password}">123</a>-->
+				<!--				</p>-->
+				<p>
+					<span class="call-icon"></span>
+					&nbsp;电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：
+					<a href="#" class="num" th:text="${marketUser.phoneNum}">123456789</a></p>
+				<p>
+					<span class="call-icon"></span>
+					&nbsp;邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：
+					<a href="#" class="num" th:text="${marketUser.email}">123456789</a>
+				</p>
+		</div>
+		<img src="/image/qw8NmP0YjA1626857667056.jpg" class="logo"/>
+		</div><!-- person-info-end -->
+</div>
+
+<footer>
+	<a href="#">©2021-7 二手物品交易</a>
+	<a href="#">意见反馈&nbsp;&nbsp;&nbsp;联系我们&nbsp;&nbsp;&nbsp;隐私权声明&nbsp;&nbsp;&nbsp;使用条款</a>
+</footer>
+
+<!-- javascript- -->
+<script type="text/javascript" src="/js/jquery-3.2.js"></script>
+<script type="text/javascript" src="/js/infomation.js"></script>
+</body>
+</html>

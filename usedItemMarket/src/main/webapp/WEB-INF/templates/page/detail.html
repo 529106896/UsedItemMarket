@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="shortcut icon" href="/image/xmu.png" type="image/x-icon"/>
+	<title>个人信息</title>
+	<meta charset="UTF-8"/>
+	<link rel="stylesheet" type="text/css" href="/css/bookDetail.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/mygoodsshelf.css"/>
+	<script type="text/javascript" src="/js/jquery-3.2.js"></script>
+	<script type="text/javascript" src="/js/infomation.js"></script>
+
+	<script>
+		$(function ()
+		{
+			$('.buy-now').click(function ()
+			{
+				var id = $(this).attr('value');
+
+				var seller_id = $("#seller-id").attr("value");
+				var buyer_id = $("#buyer-id").attr("value");
+
+				if(seller_id === buyer_id)
+					alert("不可购买自己上传的商品！");
+				else
+				{
+					window.location.href = "/goToBuyPage.do?GID="+id;
+
+				}
+			});
+
+			$('.addCart').click(function ()
+			{
+				var seller_id = $("#seller-id").attr("value");
+				var buyer_id = $("#buyer-id").attr("value");
+
+				if(seller_id === buyer_id)
+					alert("不可购买自己上传的商品！");
+				else
+				{
+					var r = confirm("确定添加到购物车？");
+					var id = $(this).attr('value');
+
+					if (r === true)
+					{
+						$.ajax({
+							url: "/addToMyCart.do",
+							data: {
+								GID: id
+							},
+							type: "get",
+							success: function (data)
+							{
+
+							},
+							error: function (e){
+								alert("您已添加过该商品，请勿重复添加！");
+							}
+
+						})
+					}
+				}
+
+
+			})
+		});
+
+	</script>
+
+</head>
+<body>
+	<nav class="navbar">
+		<div class="nav-menu">
+            <ul class="menu">
+                <li><a href="/">首页</a></li>
+                <li><a href="/goToMallPage.do">二手商品</a></li>
+            </ul>
+		</div><!-- nav-menu -->
+
+
+		<div class="nav-info">
+			<a href="/personal_info.do" th:text="${marketUser.uname}">用户</a>
+			<p type="hidden" id="buyer-id" th:value="${marketUser.UID}"></p>
+			<a class="goodshelf" href="/goToMyCart.do">||&nbsp;&nbsp;&nbsp;我的购物车</a>
+			<a class="logout" href="/logout.do">[ 退 出 ]</a>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div id="book-pic">
+			<div class="book-big">
+				<img th:if="${marketGoods.image==null}" src="/image/emptyImage.jpg"/>
+				<img src="" th:src="${marketGoods.image}" th:if="${marketGoods.image!=null}"/>
+			</div>
+<!--			<span class="tip"></span>-->
+		</div>
+
+		<div id="book-info">
+			<span class="book-name" th:text="${marketGoods.getName()}">计算机组成原理</span>
+			<span class="book-publish" th:text="${marketGoods.getKind()}">唐朔飞 著 / 2009-09 / 平装</span>
+			<span class="book-price">
+				<p>售价 <a class="final-price" th:text="'￥'+${marketGoods.getPrice()}">￥13.00</a></p>
+				<p>商品数量<a class="final-price" th:text="${marketGoods.getNumber()}">2018-03-20</a></p>
+			</span>
+			<span class="buy-now" th:if="${!seller.uname.contains('已注销')}" th:value="${marketGoods.getGID()}">
+				<a>立即购买</a>
+			</span>
+			<span class="addCart" th:if="${!seller.uname.contains('已注销')}" th:value="${marketGoods.getGID()}">
+				<a>添加到购物车</a>
+			</span>
+		</div>
+
+		<div id="seller-info">
+			<a class="seller-name" th:text="${seller.uname}">testSeller</a>
+			<p type="hidden" id="seller-id" th:value="${seller.UID}"></p>
+			<span class="seller-span1">
+				联系<a class="seller-chat">在线联系</a>
+			</span>
+			<span class="seller-span2">
+				<p>电话<a class="seller-num" th:text="${seller.phoneNum}">132-1234-1234</a></p>
+				<p>邮箱<a class="seller-adr" th:text="${seller.email}">123@qq.com</a></p>
+			</span>
+			<!--查看此卖家其他商品，此功能可实现，建议保留-->
+			<span class="seller-span3">
+				<a href="#">[ 去看看卖家的其他商品 ]</a>
+			</span>
+		</div>
+		<div id="book-content">
+			<span class="book-tip" th:if="${marketGoods.comment==null}">这个卖家很懒，什么都没留下</span>
+			<span class="book-tip" th:if="${marketGoods.comment!=null}" th:text="${marketGoods.comment}">这个卖家很懒，什么都没留下</span>
+		</div>
+	</div><!--  container -->
+	
+
+	<footer>
+		<a href="#">©2021-7 二手物品交易</a>
+		<a href="#">意见反馈&nbsp;&nbsp;&nbsp;联系我们&nbsp;&nbsp;&nbsp;隐私权声明&nbsp;&nbsp;&nbsp;使用条款</a>
+	</footer>
+	
+	<!-- javascript- -->
+
+			
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="shortcut icon" href="/image/xmu.png" type="image/x-icon"/>
+  <title>编辑用户信息</title>
+  <link rel="stylesheet" type="text/css" href="/css/mygoodsshelf.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/upload.css"/>
+</head>
+<body>
+<!-- 导航条 -->
+<nav class="navbar">
+  <div class="nav-menu">
+    <ul class="menu">
+      <li><a href="#">这里是管理员后台</a></li>
+    </ul>
+  </div><!-- nav-menu -->
+
+  <!--            <form class="nav-search">-->
+  <!--                <input type="search" class="searchIn" placeholder="搜二手商品..."/>-->
+  <!--                <button class="search-logo"><img src="/image/search.png"/></button>-->
+  <!--            </form>-->
+
+  <div class="nav-info">
+    <a href="#" th:text="${marketUser.uname}"></a>
+    <a class="logout" href="/logout.do">[ 退 出 ]</a>
+  </div> <!-- nav-info -->
+</nav>
+
+<div class="titleName">
+  <h3>编辑用户信息</h3>
+</div>
+
+<div class="container">
+  <form action="/submitEditInfo.do" method="post">
+    <input type="hidden" th:value="${editUID}" name="UID"/>
+    <p>
+      <span class="name-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      姓&nbsp;&nbsp;&nbsp;&nbsp;名：<input type="text" name="Uname" th:value="${targetUser.uname}"/>
+    </p><br/>
+<!--    <p>-->
+<!--      <span class="desc-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>-->
+<!--      密&nbsp;&nbsp;&nbsp;&nbsp;码：<input type="password" name="Password"/>-->
+<!--    </p><br/>-->
+    <p>
+      <span class="number-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      电&nbsp;&nbsp;&nbsp;&nbsp;话：<input type="text" name="PhoneNum" th:value="${targetUser.phoneNum}"/>
+    </p><br/>
+    <p>
+      <span class="orign-icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      邮&nbsp;&nbsp;&nbsp;&nbsp;箱：<input type="text" name="Email" th:value="${targetUser.email}"/>
+    </p>
+    <input type="submit" class="submit-btn" name="goods-submit"/>
+  </form>
+</div>
+<footer>
+  <a href="#">©2021-7 二手物品交易</a>
+  <a href="#">意见反馈&nbsp;&nbsp;&nbsp;联系我们&nbsp;&nbsp;&nbsp;隐私权声明&nbsp;&nbsp;&nbsp;使用条款</a>
+</footer>
+<script type="text/javascript" src="/js/jquery-3.2.js"></script>
+</body>
+</html>

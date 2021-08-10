@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link rel="shortcut icon" href="/image/xmu.png" type="image/x-icon"/>
+	<meta charset="UTF-8"/>
+	<title>校园二手交易平台</title>
+	<script src="/js/jquery-3.2.js">
+	</script>
+	<script src="/js/login/init_login.js">
+	</script>
+	<style>
+		.ttpp{
+			font-size:10px
+		}
+	</style>
+<!--	<script type="text/javascript">-->
+<!--		$(function ()-->
+<!--		{-->
+<!--			$("#loginBtn").click(function ()-->
+<!--			{-->
+<!--				var message = $("#loginError").val();-->
+
+<!--				if(message !== "")-->
+<!--					alert(message);-->
+<!--			});-->
+<!--		});-->
+<!--	</script>-->
+
+	<link rel="stylesheet" type="text/css" href="/css/login.css"/>
+</head>
+<body>
+	<div id="login-container" style="height: 340px">
+		<h3 align="center">校园二手交易平台&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+		<form action="/login.do" method="post">
+			<table>
+				<tr>
+					<td>&nbsp;&nbsp;学号：</td>
+					<td>
+<!--						<input type="hidden" th:value="${token}" class="token" name="token"/>-->
+						<input type="text" id="input_username" class="userName" name="sNum"/>
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;&nbsp;密码：</td>
+					<td>
+						<input type="password" id="input_password" class="password" name="Password"/>
+					</td>
+				</tr>
+			</table>
+				<tr height="20" >
+					<td colspan="2">
+						<input type="radio" class="choice" name="isAdmin" value="true"/>&nbsp;管理员
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="radio" class="choice"  name="isAdmin" value="false" checked="checked"/>&nbsp;普通用户
+					</td>
+				</tr>
+			<p style="color: #c53737" align="center" id="loginError" th:if="${loginMessage}!=null" th:text="${loginMessage}"></p>
+			<input id="loginBtn" class="loginBtn" type="submit" value="登录"/><br/>
+			<span style="color: #1b4a50;" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;还没有账号？<a href="/goToRegister.do">注册</a></span>
+			<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点错了？<a href="/">回到首页</a></span>
+		</form>
+		<script type="text/javascript" src="/js/jquery-3.2.js"></script>
+		<script>
+
+		</script>
+
+	</div>
+</body>
+</html>

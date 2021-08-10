@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+  <display-name>web-ssm</display-name>
+
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring-mybatis.xml</param-value>
+  </context-param>
+  
+<!--  <context-param>-->
+<!--    <param-name>log4jConfigLocation</param-name>-->
+<!--    <param-value>classpath:log4j.properties</param-value>-->
+<!--  </context-param>-->
+<!--  <listener>-->
+<!--    <listener-class>org.springframework.web.util.Log4jConfigListner</listener-class>-->
+<!--  </listener>-->
+
+  <!-- log4j2-begin -->
+  <listener>
+    <listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
+  </listener>
+  <filter>
+    <filter-name>log4jServletFilter</filter-name>
+    <filter-class>org.apache.logging.log4j.web.Log4jServletFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>log4jServletFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+  </filter-mapping>
+  <!-- log4j2-end -->
+  
+  <filter>
+    <filter-name>encodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>UTF-8</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>encodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <listener>
+    <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+  </listener>
+
+  <servlet>
+    <servlet-name>SpringMVC</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring-mvc.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+    <async-supported>true</async-supported>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SpringMVC</servlet-name>
+    <!--或者*.do-->
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+  <welcome-file-list>
+    <welcome-file>/</welcome-file>
+  </welcome-file-list>
+
+  <session-config>
+    <session-timeout>15</session-timeout>
+  </session-config>
+
+<!--  <error-page>-->
+<!--    <location>/error</location>-->
+<!--    &lt;!&ndash;<error-code>405</error-code>&ndash;&gt;-->
+<!--  </error-page>-->
+<!--  <error-page>-->
+<!--    <location>/error</location>-->
+<!--    &lt;!&ndash;<error-code>404</error-code>&ndash;&gt;-->
+<!--  </error-page>-->
+<!--  <error-page>-->
+<!--    <location>/error</location>-->
+<!--    &lt;!&ndash;<error-code>403</error-code>&ndash;&gt;-->
+<!--  </error-page>-->
+<!--  <error-page>-->
+<!--    <location>/error</location>-->
+<!--    &lt;!&ndash;<error-code>402</error-code>&ndash;&gt;-->
+<!--  </error-page>-->
+<!--  <error-page>-->
+<!--    <location>/error</location>-->
+<!--    &lt;!&ndash;<error-code>401</error-code>&ndash;&gt;-->
+<!--  </error-page>-->
+<!--  <error-page>-->
+<!--    <location>/error</location>-->
+<!--    &lt;!&ndash;<error-code>400</error-code>&ndash;&gt;-->
+<!--  </error-page>-->
+<!--  <error-page>-->
+<!--    <location>/error</location>-->
+<!--    &lt;!&ndash;<error-code>500</error-code>&ndash;&gt;-->
+<!--  </error-page>-->
+<!--  <error-page>-->
+<!--    <location>/error</location>-->
+<!--    &lt;!&ndash;<error-code>501</error-code>&ndash;&gt;-->
+<!--  </error-page>-->
+<!--  <error-page>-->
+<!--    <location>/error</location>-->
+<!--    &lt;!&ndash;<error-code>502</error-code>&ndash;&gt;-->
+<!--  </error-page>-->
+<!--  <error-page>-->
+<!--    <location>/error</location>-->
+<!--    &lt;!&ndash;<error-code>503</error-code>&ndash;&gt;-->
+<!--  </error-page>-->
+<!--  <error-page>-->
+<!--    <location>/error</location>-->
+<!--    &lt;!&ndash;<error-code>504</error-code>&ndash;&gt;-->
+<!--  </error-page>-->
+<!--  <error-page>-->
+<!--    <location>/error</location>-->
+<!--    &lt;!&ndash;<error-code>505</error-code>&ndash;&gt;-->
+<!--  </error-page>-->
+  
+</web-app>

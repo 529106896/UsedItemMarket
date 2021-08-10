@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.TropicalFlavor.dao.RecordDao">
+    <!--完善1.namespace 2.sql语句的id和resuleType-->
+    <delete id="DeleteRecord">
+        delete from  traderecord where PID=#{PID}
+    </delete>
+
+    <select id="SelectRecord" parameterType="com.TropicalFlavor.po.PurchaseRecord">
+        select PID,Date,Time,GID,Gname,Gkind,Gprice,Gnumber from  traderecord where PID=#{PID}
+    </select>
+
+    <insert id="InsertRecord">
+        insert into traderecord(PID,BuyerID,Date,Time,GID,Gname,Gkind,Gprice,Gnumber)
+        values (#{purchaseRecord.PID},#{UID},#{purchaseRecord.Date},#{purchaseRecord.Time},
+                #{purchaseRecord.GID},#{purchaseRecord.Gname},#{purchaseRecord.Gkind},
+                #{purchaseRecord.Gprice},#{purchaseRecord.Gnumber})
+    </insert>
+
+    <update id="UpdateRecord">
+        update traderecord
+        set IsSent=#{IsSent},IsGot=#{IsGot}
+        where PID=#{PID}
+    </update>
+
+    <select id="ShowRecord" resultType="com.TropicalFlavor.po.PurchaseRecord">
+        select PID,Date,Time,GID,Gname,Gkind,Gprice,Gnumber from traderecord
+        where BuyerID=#{marketUser.UID} and IsSent = #{IsSent} and IsGot = #{IsGot}
+    </select>
+
+    <select id="ShowAllRecord" resultType="com.TropicalFlavor.po.TradeRecord">
+        select PID,BuyerID,Date,Time,salegoods.UID SellerID,Gname,Gkind,Gprice,Gnumber,IsSent,IsGot
+        from traderecord,salegoods
+        where traderecord.GID=salegoods.GID
+    </select>
+
+</mapper>

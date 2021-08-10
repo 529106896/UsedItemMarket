@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>购买记录</title>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" type="text/css" href="/css/mygoodsshelf.css"/>
+  <!-- javascript- -->
+  <script type="text/javascript" src="/js/jquery-3.2.js"></script>
+  <script type="text/javascript" src="/js/infomation.js"></script>
+
+</head>
+<body>
+    <!-- 导航条 -->
+    <nav class="navbar">
+      <div class="nav-menu">
+        <ul class="menu">
+          <li><a href="/">首页</a></li>
+          <li><a href="/goToMallPage.do">二手商品</a></li>
+          <!--                <li><a href="request.html">求购区</a></li>-->
+        </ul>
+      </div><!-- nav-menu -->
+
+      <div class="nav-info">
+        <!--			<a class="username" href="information.html">用户</a>-->
+        <a href="/personal_info.do" th:text="${marketUser.uname}"></a>
+        <!--			<a class="goodsshelf" href="register1.html">||&nbsp;&nbsp;&nbsp;注册</a>-->
+        <a class="goodshelf" href="/goToMyCart.do">||&nbsp;&nbsp;&nbsp;我的购物车</a>
+        <a class="logout" href="/logout.do">[ 退 出 ]</a>
+      </div> <!-- nav-info -->
+    </nav>
+
+    <div class="show">
+        <div class="menu-er" style="width: 170px">
+            <ul>
+                <li><img src="/image/ran1.jpg" class="per"/> </li>
+                <li class="chosen"><a href="/personal_info.do" class="word"><span class="spannn">个人信息</span></a></li>
+                <li class="chosen"><a href="/my_publish_product_page.do" class="word"><span class="spannn">我的商品</span></a></li>
+                <li class="chosen"><a href="/my_buy_history.do" class="word"><span class="spannn">购买记录</span></a></li>
+                <li class="chosen"><a href="/my_sell_history.do" class="word"><span class="spannn">售卖记录</span></a></li>
+            </ul>
+        </div>
+
+
+        <div align="center" class="record">
+            <div align="right" class="rightNav">
+                    <h3>我的购买记录</h3><br/>
+                    <a href="/my_buy_history.do" class="btn1">交易成功</a>
+                    <a href="/my_buy_history_ToBeSentOut.do" class="btn2">待卖家发货</a>
+                    <a href="/my_buy_history_ToBeCheck.do" class="btn3">待确认收货</a>
+
+            </div>
+            <table border="1" cellspacing="10px">
+                <thead>
+                <tr>
+                    <th width="150px">交易ID</th>
+                    <th width="190px">卖家ID</th>
+                    <th width="150px">购买日期</th>
+                    <th width="150px">购买时间</th>
+                    <th width="150px">物品名称</th>
+                    <th width="150px">物品种类</th>
+                    <th width="150px">物品价格</th>
+                    <th width="150px">购买数量</th>
+                </tr>
+                </thead>
+                <tbody>
+                <figure th:each="o:${myRecordList}">
+                    <tr>
+                        <td th:text="${o.value.PID}" align="center"></td>
+                        <td th:text="${o.key}" align="center"></td>
+                        <td th:text="${o.value.date}" align="center"></td>
+                        <td th:text="${o.value.time}" align="center"></td>
+                        <td th:text="${o.value.gname}" align="center"></td>
+                        <td th:text="${o.value.gkind}" align="center"></td>
+                        <td th:text="${o.value.gprice}" align="center"></td>
+                        <td th:text="${o.value.gnumber}" align="center"></td>
+                    </tr>
+                </figure>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+    <footer>
+      <a href="#">©2021-7 二手物品交易</a>
+      <a href="#">意见反馈&nbsp;&nbsp;&nbsp;联系我们&nbsp;&nbsp;&nbsp;隐私权声明&nbsp;&nbsp;&nbsp;使用条款</a>
+    </footer>
+
+
+</body>
+</html>

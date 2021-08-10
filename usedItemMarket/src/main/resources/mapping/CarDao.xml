@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.TropicalFlavor.dao.CarDao">
+    <!--完善1.namespace 2.sql语句的id和resuleType-->
+    <delete id="DeleteGoods" >
+        delete  from shoppingcart where UID=#{UID} and GID=#{marketGoods.GID}
+    </delete>
+
+    <insert id="InsertGoods" >
+        insert into shoppingcart values(#{UID},#{marketGoods.GID},#{marketGoods.Number})
+    </insert>
+
+    <resultMap id="MarketGoodsMap" type="com.TropicalFlavor.po.MarketGoods">
+        <!-- 主键字段使用 id -->
+        <id column="GID" property="GID" />
+        <!--非主键字段使用 result-->
+        <result column="Name" property="Name"/>
+        <result column="Kind" property="Kind" />
+        <result column="Price" property="Price" />
+        <result column="Number" property="Number" />
+        <result column="Image" property="Image"/>
+    </resultMap>
+
+    <update id="ChangeCart" parameterType="com.TropicalFlavor.po.MarketGoods">
+        UPDATE shoppingcart
+        set UID=#{UID}, GID=#{marketGoods.GID}, Number=#{marketGoods.Number}
+        where GID=#{marketGoods.GID}
+    </update>
+
+    <select id="ShowGoods" resultMap="MarketGoodsMap">
+        select shoppingcart.GID,Name,Kind,Price,shoppingcart.Number,marketgoods.Image from shoppingcart,marketgoods where
+        shoppingcart.UID=#{UID} and shoppingcart.GID=marketgoods.GID and shoppingcart.Number > 0
+    </select>
+
+</mapper>
