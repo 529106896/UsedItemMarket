@@ -1,6 +1,8 @@
 # UsedItemMarket
 大二小学期Java程序设计实践的项目，校园二手交易市场
 
+部分代码参考https://github.com/wsk1103/Used-Trading-Platform
+
 本项目是软件工程专业大二小学期Java程序设计实践的项目作业，主要采用：SpringMVC、SSM框架、MySQL、thymeleaf、jquery、ajax、JavaScript等
 
 <h3>使用前必看：使用须知.doc、系统设计.doc</h3>
