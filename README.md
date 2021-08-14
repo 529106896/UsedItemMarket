@@ -5,6 +5,8 @@
 
 本项目是软件工程专业大二小学期Java程序设计实践的项目作业，主要采用：SpringMVC、SSM框架、MySQL、thymeleaf、jquery、ajax、JavaScript等
 
+本项目为五人小组——热带风味泸溪河 的合作项目，非本人一人完成
+
 <h3>使用前必看：使用须知.doc、系统设计.doc</h3>
 
 <h2>以下也是必看内容</h2>
